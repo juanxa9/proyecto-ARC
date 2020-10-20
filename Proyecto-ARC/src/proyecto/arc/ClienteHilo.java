@@ -18,9 +18,11 @@ public class ClienteHilo extends Thread{
     private Socket socket;
     private DataOutputStream dos;
     private DataInputStream dis;
+    private int id;
     
-    public ClienteHilo(Socket socket){
+    public ClienteHilo(int id, Socket socket){
         this.socket = socket;
+        this.id = id;
         try {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
@@ -31,6 +33,15 @@ public class ClienteHilo extends Thread{
     
     @Override
     public void run(){
-        
+        try {
+            //Aqui poner las instrucciones que hara el hilo del cliente - jx
+            
+            
+            dis.close();
+            dos.close();
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

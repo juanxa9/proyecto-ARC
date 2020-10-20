@@ -47,6 +47,8 @@ public class Cliente {
                 for(int j = 0; j < v ; j++){
                     p = i+j;
                     matriz[i][j] = new Cliente(p);
+                    //estoy creando hilo por cliente - jx
+                    ((ClienteHilo)new ClienteHilo(p, sc)).start();
                 }
                     
             }
