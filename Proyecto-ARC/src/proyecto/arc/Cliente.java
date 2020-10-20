@@ -33,7 +33,6 @@ public class Cliente {
             String mensajeCliente = dis.readUTF();
             System.out.println(mensajeCliente);
             sc.close();
-                    
         }
         catch(IOException ex)
         {
