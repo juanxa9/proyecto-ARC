@@ -16,10 +16,17 @@ public class Cliente {
     {
         final String HOST = "127.0.0.1";
         final int PUERTO = 10578;
+        Thread t;
         ArrayList<Thread> clientes = new ArrayList<Thread>(); 
         DataInputStream dis;
         DataOutputStream dos;
+        DatosPrograma datos;
+        int clientesTotales;
         
+        
+        t = new Thread();
+        datos = new DatosPrograma();
+        clientesTotales = datos.getN();
         try
         {
             Socket sc = new Socket(HOST, PUERTO);
@@ -36,9 +43,9 @@ public class Cliente {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        for(Thread thread: clientes)
+        for(int i=0; i<clientesTotales;i++)
         {
-            clientes.add(thread);
+            clientes.add(t);
         }
         
         
