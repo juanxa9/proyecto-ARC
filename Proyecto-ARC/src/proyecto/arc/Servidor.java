@@ -12,7 +12,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.logging.Level;
-import sun.util.logging.PlatformLogger;
 
 /**
  *
@@ -48,7 +47,7 @@ public class Servidor {
         }
         catch(IOException ex)
         {
-            Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
               
     }
