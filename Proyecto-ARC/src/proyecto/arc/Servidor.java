@@ -11,9 +11,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Scanner;
-import java.util.logging.Logger;
-import java.util.logging.Level;
+import java.util.*;
+import java.util.logging.*;
 
 /**
  *
