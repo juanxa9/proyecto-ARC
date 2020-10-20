@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Scanner;
 
 /**
  *
@@ -22,6 +23,7 @@ public class Cliente {
         final int PUERTO = 10578;
         DataInputStream dis;
         DataOutputStream dos;
+        
         
         try
         {

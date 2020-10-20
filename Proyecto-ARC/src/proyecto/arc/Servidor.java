@@ -11,6 +11,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Scanner;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 
@@ -28,6 +29,20 @@ public class Servidor {
         DataInputStream dis;
         DataOutputStream dos;
         final int PUERTO = 10578;
+        
+        DatosPrograma datos = new DatosPrograma();
+        
+        Scanner entrada = new Scanner(System.in);
+        System.out.println("Introduzca el numero de clientes: ");
+        datos.setN(entrada.nextInt());
+        System.out.println("Introduzca el numero de vecinos por grupo: ");
+        datos.setV(entrada.nextInt());
+        if((datos.getN() % datos.getV()) != 0){
+            System.out.println("El numero de vecinos por cliente es incorrecto, vuelva a introducirlo: ");
+            datos.setV(entrada.nextInt());
+        } 
+        System.out.println("Introduzca el numero iteraciones: ");
+        datos.setS(entrada.nextInt());
         
         try
         {
