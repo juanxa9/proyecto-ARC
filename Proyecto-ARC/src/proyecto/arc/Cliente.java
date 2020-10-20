@@ -40,19 +40,18 @@ public class Cliente {
             s = dis.readInt();
             System.out.println("Me han llegado que vamos a hacer "+ s +" iteraciones");
             
-            for(int i=0; i<n ; i++)
+            for(int i=0; i<(n/v) ; i++)
             {
-                clientes.add(t);    //Añadimos un hilo por cada cliente
                 //Asignamos una posición de la matriz a cada cliente, una fila por grupo
                 for(int j = 0; j < v ; j++){
                     p = i+j;
                     matriz[i][j] = new Cliente(p);
-                    //estoy creando hilo por cliente - jx
-                    ((ClienteHilo)new ClienteHilo(p, sc)).start();
+                    clientes.add(new ClienteHilo(p, sc));
                 }
-                    
             }
-            
+            for (Thread thread : clientes) {
+                thread.start();
+            }
             
         }
         catch(IOException ex)
