@@ -25,7 +25,7 @@ public class Cliente {
         DataInputStream dis;
         DataOutputStream dos;
         int n,v,s,p;
-        int matriz[][] = null;
+        Cliente matriz[][] = null;
         
         try
         {
@@ -56,9 +56,5 @@ public class Cliente {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        for(Thread thread: clientes)
-        {
-            clientes.add(thread);
-        }
     }
 }
