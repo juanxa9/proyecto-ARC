@@ -24,8 +24,10 @@ public class Cliente {
         Thread t = null;
         DataInputStream dis;
         DataOutputStream dos;
-        int n,v,s,p;
+        int n,v,s,j,id;
         Cliente matriz[][] = null;
+        j = id = 0;
+        double grupo_aux, decimal, grupo;
         
         try
         {
@@ -40,14 +42,18 @@ public class Cliente {
             s = dis.readInt();
             System.out.println("Me han llegado que vamos a hacer "+ s +" iteraciones");
             
-            for(int i=0; i<(n/v) ; i++)
+            for(int i=0; i<n ; i++)
             {
-                //Asignamos una posición de la matriz a cada cliente, una fila por grupo
-                for(int j = 0; j < v ; j++){
-                    p = i+j;
-                    matriz[i][j] = new Cliente(p);
-                    clientes.add(new ClienteHilo(p, sc));
+                grupo_aux = i / v;
+                decimal = grupo_aux % 1;   //sacamos la parte decimal
+                grupo = grupo_aux - decimal;
+                if(j == v){
+                    j = 0;
                 }
+                matriz[(int)grupo][j] = new Cliente(id);
+                clientes.add(new ClienteHilo(id, sc));
+                id++;
+                j++;
             }
             for (Thread thread : clientes) {
                 thread.start();
