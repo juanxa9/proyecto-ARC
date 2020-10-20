@@ -54,11 +54,9 @@ public class Servidor {
                 sc = servidor.accept();
                 dis = new DataInputStream(sc.getInputStream());
                 dos = new DataOutputStream(sc.getOutputStream());
-                String mensajePrueba = dis.readUTF();
-                System.out.println(mensajePrueba);
-                dos.writeUTF("La conexion con el servidor ha sido correcta");
-                sc.close();
-                System.out.println("El cliente se ha desconectado del servidor");
+                dos.writeInt(datos.getN());
+                dos.writeInt(datos.getV());
+                dos.writeInt(datos.getS());
             }
         }
         catch(IOException ex)
