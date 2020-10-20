@@ -24,9 +24,6 @@ public class Cliente {
         int clientesTotales;
         
         
-        t = new Thread();
-        datos = new DatosPrograma();
-        clientesTotales = datos.getN();
         try
         {
             Socket sc = new Socket(HOST, PUERTO);
@@ -41,11 +38,6 @@ public class Cliente {
         catch(IOException ex)
         {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        for(int i=0; i<clientesTotales;i++)
-        {
-            clientes.add(t);
         }
         
         
