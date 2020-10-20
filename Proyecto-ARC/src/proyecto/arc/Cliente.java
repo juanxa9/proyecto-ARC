@@ -7,6 +7,7 @@ package proyecto.arc;
 import java.io.*;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,6 +21,7 @@ public class Cliente {
     {
         final String HOST = "127.0.0.1";
         final int PUERTO = 10578;
+        ArrayList<Thread> clientes = new ArrayList<Thread>(); 
         DataInputStream dis;
         DataOutputStream dos;
         
@@ -37,6 +39,11 @@ public class Cliente {
         catch(IOException ex)
         {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        for(Thread thread: clientes)
+        {
+            clientes.add(thread);
         }
         
         
