@@ -22,6 +22,7 @@ public class Cliente {
         final String HOST = "127.0.0.1";
         final int PUERTO = 10578;
         ArrayList<Thread> clientes = new ArrayList<Thread>(); 
+        Thread t = null;
         DataInputStream dis;
         DataOutputStream dos;
         int n,v,s,p;
@@ -42,6 +43,8 @@ public class Cliente {
             
             for(int i=0; i<n ; i++)
             {
+                clientes.add(t);    //Añadimos un hilo por cada cliente
+                //Asignamos una posición de la matriz a cada cliente, una fila por grupo
                 for(int j = 0; j < v ; j++){
                     p = i+j;
                     matriz[i][j] = new Cliente(p);
@@ -56,5 +59,7 @@ public class Cliente {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
         }
         
+        
+         
     }
 }
