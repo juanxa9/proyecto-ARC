@@ -28,6 +28,15 @@ public class ServidorHilo extends Thread {
             Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public void desconnectar() {
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+        
     //Gestionamos qué hacer cuando recibamos un mensaje del cliente
     @Override
     public void run() {
@@ -43,5 +52,6 @@ public class ServidorHilo extends Thread {
         } catch (IOException ex) {
             Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
+        desconnectar();
     }
 }

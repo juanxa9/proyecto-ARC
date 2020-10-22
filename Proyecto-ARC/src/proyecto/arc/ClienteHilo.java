@@ -45,6 +45,14 @@ public class ClienteHilo extends Thread{
      
     }
     
+    public void desconnectar() {
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
     @Override
     public void run(){
         final String HOST = "127.0.0.1";
@@ -80,10 +88,6 @@ public class ClienteHilo extends Thread{
         }
         
         //JX - he puesto el close fuera
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        desconnectar();
     }
 }
