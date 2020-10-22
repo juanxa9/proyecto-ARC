@@ -35,7 +35,7 @@ public class ClienteHilo extends Thread{
     public void run(){
         try {
             //Aqui poner las instrucciones que hara el hilo del cliente - jx
-            System.out.println("hola me han despertado");
+            System.out.println("Soy el cliente " + id +" me han despertado");
              
            
             
