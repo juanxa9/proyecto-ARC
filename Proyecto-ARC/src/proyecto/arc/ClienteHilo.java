@@ -22,16 +22,17 @@ public class ClienteHilo extends Thread{
     private int i;
     private DatosPrograma datos;
     private Random random;
-    private Coordenadas coordenadas;
-    private int x,y,z;
+    //Maricel creo no hacia falta coordenadas aun
+    //private Coordenadas coordenadas;
+    //private int x,y,z;
     
     public ClienteHilo(int id, Socket socket,DatosPrograma datos){
         this.socket = socket;
         this.id = id;
         this.datos = datos;
-        x = 0;
-        y = 0;
-        z = 0;
+        //x = 0;
+        //y = 0;
+        //z = 0;
         
         try {
             dos = new DataOutputStream(socket.getOutputStream());
@@ -53,10 +54,10 @@ public class ClienteHilo extends Thread{
             for(i=0; i<datos.s ; i++){
                 System.out.println("Soy el cliente " + id +" me han despertado " + socket.getPort());
                 
-               
-                x = 10;
-                y = 5;
-                z = 7;
+                //Maricel
+                //x = 10;
+                //y = 5;
+                //z = 7;
                 /*dos.writeUTF("envioCoordenadas");
                 dos.writeInt(x);
                 dos.writeInt(y);

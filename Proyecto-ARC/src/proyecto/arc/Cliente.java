@@ -22,7 +22,8 @@ public class Cliente {
         final String HOST = "127.0.0.1";
         final int PUERTO = 10578;
         ArrayList<Thread> clientes = new ArrayList<Thread>(); 
-        Thread t = null;
+        //Maricel
+        //Thread t = null;
         DataInputStream dis;
         DataOutputStream dos;
         int j,id,empInt,startSim;
@@ -48,13 +49,14 @@ public class Cliente {
             System.out.println("Me han llegado que vamos a hacer "+ datos.s +" iteraciones");
             
             // Inicializamos la matriz aqui, por ej: n= 100, v = 10, una matriz 10x10
-            
             matriz = new Cliente [datos.n/datos.v][datos.n/datos.v];
+            
             for(int i=0; i<datos.n ; i++)
             {
                 grupo_aux = i / datos.v;
                 decimal = grupo_aux % 1;   //sacamos la parte decimal
                 grupo = grupo_aux - decimal;
+                //Pasamos de fila en la matriz
                 if(j == datos.v){
                     j = 0;
                 }
@@ -79,13 +81,10 @@ public class Cliente {
             if(empInt == 1)
                 empieza = true;
             
-            
             for (Thread thread : clientes) {
                 thread.start();
             }
-            
-            
-            
+
             synchronized(clientes){
             if(!empieza)
                 clientes.wait();
