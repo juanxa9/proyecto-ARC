@@ -67,8 +67,14 @@ public class ClienteHilo extends Thread{
                 
             dis.close();
             dos.close();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        //JX - he puesto el close fuera
+        try {
             socket.close();
-            
         } catch (IOException ex) {
             Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
