@@ -19,10 +19,17 @@ public class ClienteHilo extends Thread{
     private DataOutputStream dos;
     private DataInputStream dis;
     private int id;
+    private int s; 
+    private int i;
+    private DatosPrograma datos;
     
-    public ClienteHilo(int id, Socket socket){
+    public ClienteHilo(int id, Socket socket,DatosPrograma datos){
         this.socket = socket;
         this.id = id;
+        this.datos = datos;
+        
+        
+        
         try {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
@@ -35,7 +42,9 @@ public class ClienteHilo extends Thread{
     public void run(){
         try {
             //Aqui poner las instrucciones que hara el hilo del cliente - jx
-            System.out.println("Soy el cliente " + id +" me han despertado");
+            
+            for(i=0; i<datos.s ; i++)
+                System.out.println("Soy el cliente " + id +" me han despertado");
              
            
             

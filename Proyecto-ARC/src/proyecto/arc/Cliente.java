@@ -31,6 +31,8 @@ public class Cliente {
         double grupo_aux, decimal, grupo;
         Boolean empieza = false;
         Scanner entrada = new Scanner(System.in);
+        DatosPrograma datos = new DatosPrograma();
+        
         
         try
         {
@@ -38,26 +40,26 @@ public class Cliente {
             dis = new DataInputStream(sc.getInputStream());    
             dos = new DataOutputStream(sc.getOutputStream());
             
-            n = dis.readInt();
-            System.out.println("Me han llegado los clientes "+n);
-            v = dis.readInt();
-            System.out.println("Me han llegado el numero de vecinos por grupo "+ v);
-            s = dis.readInt();
-            System.out.println("Me han llegado que vamos a hacer "+ s +" iteraciones");
+            datos.n = dis.readInt();
+            System.out.println("Me han llegado los clientes "+datos.n);
+            datos.v = dis.readInt();
+            System.out.println("Me han llegado el numero de vecinos por grupo "+ datos.v);
+            datos.s = dis.readInt();
+            System.out.println("Me han llegado que vamos a hacer "+ datos.s +" iteraciones");
             
             // Inicializamos la matriz aqui, por ej: n= 100, v = 10, una matriz 10x10
             
-            matriz = new Cliente [n/v][n/v];
-            for(int i=0; i<n ; i++)
+            matriz = new Cliente [datos.n/datos.v][datos.n/datos.v];
+            for(int i=0; i<datos.n ; i++)
             {
-                grupo_aux = i / v;
+                grupo_aux = i / datos.v;
                 decimal = grupo_aux % 1;   //sacamos la parte decimal
                 grupo = grupo_aux - decimal;
-                if(j == v){
+                if(j == datos.v){
                     j = 0;
                 }
                 matriz[(int)grupo][j] = new Cliente(id);
-                clientes.add(new ClienteHilo(id, sc));
+                clientes.add(new ClienteHilo(id, sc,datos));
                 id++;
                 j++;
             }
