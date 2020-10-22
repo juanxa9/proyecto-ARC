@@ -16,7 +16,8 @@ public class Cliente {
         this.id = id;
     }
     
-    public static void main(String[] args) throws IOException
+    @SuppressWarnings("empty-statement")
+    public static void main(String[] args) throws IOException, InterruptedException
     {
         final String HOST = "127.0.0.1";
         final int PUERTO = 10578;
@@ -24,10 +25,12 @@ public class Cliente {
         Thread t = null;
         DataInputStream dis;
         DataOutputStream dos;
-        int n,v,s,j,id;
+        int n,v,s,j,id,empInt,startSim;
         Cliente matriz[][];
-        j = id = 0;
+        startSim = empInt = j = id = 0;
         double grupo_aux, decimal, grupo;
+        Boolean empieza = false;
+        Scanner entrada = new Scanner(System.in);
         
         try
         {
@@ -43,6 +46,7 @@ public class Cliente {
             System.out.println("Me han llegado que vamos a hacer "+ s +" iteraciones");
             
             // Inicializamos la matriz aqui, por ej: n= 100, v = 10, una matriz 10x10
+            
             matriz = new Cliente [n/v][n/v];
             for(int i=0; i<n ; i++)
             {
@@ -57,9 +61,36 @@ public class Cliente {
                 id++;
                 j++;
             }
+            
+            System.out.println("Todos los clientes estan listos, presiona 1 +  enter "
+                    + "para empezar la simulacion");
+            
+            startSim = entrada.nextInt();
+            while(startSim != 1){
+                System.out.println("No has introducido el numero correcto para"
+                        + "iniciar la simulacion, presiona 1 + enter. ");
+                startSim = entrada.nextInt();
+            }
+            dos.writeInt(startSim);
+            empInt = dis.readInt();
+            
+            if(empInt == 1)
+                empieza = true;
+            
+            
             for (Thread thread : clientes) {
                 thread.start();
             }
+            
+            
+            
+            synchronized(clientes){
+            if(!empieza)
+                clientes.wait();
+            
+                
+            }
+            
             
         }
         catch(IOException ex)

@@ -28,6 +28,7 @@ public class Servidor {
         DataInputStream dis;
         DataOutputStream dos;
         final int PUERTO = 10578;
+        int empieza = 0;
         
         DatosPrograma datos = new DatosPrograma();
         
@@ -48,6 +49,7 @@ public class Servidor {
             servidor = new ServerSocket(PUERTO);
             System.out.println("Se ha establecido la conexion con el servidor");
             
+            
             while(true)
             {
                 sc = servidor.accept();
@@ -56,7 +58,10 @@ public class Servidor {
                 dos.writeInt(datos.getN());
                 dos.writeInt(datos.getV());
                 dos.writeInt(datos.getS());
+                if(dis.readInt()==1)
+                    dos.writeInt(empieza);
             }
+            
         }
         catch(IOException ex)
         {
