@@ -20,7 +20,7 @@ public class ServidorHilo extends Thread {
     private int id;
     public ServidorHilo(Socket socket) {
         this.socket = socket;
-        //this.id = id;
+        
         try {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());

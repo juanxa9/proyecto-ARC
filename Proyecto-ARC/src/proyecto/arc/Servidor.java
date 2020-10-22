@@ -29,10 +29,16 @@ public class Servidor {
         DataInputStream dis;
         DataOutputStream dos;
         final int PUERTO = 10578;
-        int empieza = 0;
+        int empieza = 1;
         int x = 0,
             y = 0,
-            z = 0;
+            z = 0,
+            grupo = 0,
+            grupo_aux = 0,
+            decimal = 0,
+            j = 0;
+        
+        
         
         DatosPrograma datos = new DatosPrograma();
         
@@ -44,7 +50,8 @@ public class Servidor {
         if((datos.getN() % datos.getV()) != 0){
             System.out.println("El numero de vecinos por cliente es incorrecto, vuelva a introducirlo: ");
             datos.setV(entrada.nextInt());
-        } 
+        }
+        Socket matriz[][] = new Socket [datos.getN()/datos.getV()][datos.getN()/datos.getV()];
         System.out.println("Introduzca el numero iteraciones: ");
         datos.setS(entrada.nextInt());
         
@@ -81,15 +88,26 @@ public class Servidor {
             dos.writeInt(datos.getV());
             dos.writeInt(datos.getS());
             
+            
             if(dis.readInt()==1)
                     dos.writeInt(empieza);
             while(true)
             {
                 Socket sc2 = servidor.accept();
-                //Aqui creamos nuestro servidor hilo
-                System.out.println("Se ha hecho");
-                ((ServidorHilo) new ServidorHilo(sc2)).start();
-                System.out.println("Se ha hecho2");
+                for( int i = 0; i<datos.getN();i++){
+                    grupo_aux = i / datos.getV();
+                    decimal = grupo_aux % 1;   //sacamos la parte decimal
+                    grupo = grupo_aux - decimal;
+                    if(j == datos.getV()){
+                        j = 0;
+                }
+                    
+                    matriz[(int)grupo][j]= sc2;
+                    j++;
+                    System.out.println(matriz[0][0].getPort());
+                    ((ServidorHilo) new ServidorHilo(sc2)).start();
+                    System.out.println("Se ha hecho2");
+                }
             }
         }
         catch(IOException ex)

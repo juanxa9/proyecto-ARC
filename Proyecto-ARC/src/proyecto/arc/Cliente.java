@@ -60,7 +60,6 @@ public class Cliente {
                 if(j == datos.v){
                     j = 0;
                 }
-                
                 matriz[(int)grupo][j] = new Cliente(id);
                 clientes.add(new ClienteHilo(id,datos));
                 id++;
@@ -79,18 +78,18 @@ public class Cliente {
             dos.writeInt(startSim);
             empInt = dis.readInt();
             
+            
             if(empInt == 1)
                 empieza = true;
-            
-            for (Thread thread : clientes) {
-                thread.start();
-            }
 
             synchronized(clientes){
             if(!empieza)
                 clientes.wait();    
             }
             
+            for (Thread thread : clientes) {
+                thread.start();
+            }
             
         }
         catch(IOException ex)

@@ -52,7 +52,7 @@ public class ClienteHilo extends Thread{
             
             
             for(i=0; i<datos.s ; i++){
-                System.out.println("Soy el cliente " + id +" me han despertado " + sc.getPort());
+                System.out.println("Soy el cliente " + id +" me han despertado " + sc.getLocalPort());
                 
                 //Maricel
                 //x = 10;
@@ -75,5 +75,8 @@ public class ClienteHilo extends Thread{
         
         //JX - he puesto el close fuera
         desconnectar();
+    }
+    public int devolverLocalPort(){
+        return sc.getLocalPort();
     }
 }
