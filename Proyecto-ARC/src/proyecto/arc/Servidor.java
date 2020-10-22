@@ -75,11 +75,12 @@ public class Servidor {
          */
             //Maricel el puto amo
             sc = servidor.accept();
-                dis = new DataInputStream(sc.getInputStream());
-                dos = new DataOutputStream(sc.getOutputStream());
-                dos.writeInt(datos.getN());
-                dos.writeInt(datos.getV());
-                dos.writeInt(datos.getS());
+            dis = new DataInputStream(sc.getInputStream());
+            dos = new DataOutputStream(sc.getOutputStream());
+            dos.writeInt(datos.getN());
+            dos.writeInt(datos.getV());
+            dos.writeInt(datos.getS());
+            
             if(dis.readInt()==1)
                     dos.writeInt(empieza);
             while(true)

@@ -21,33 +21,22 @@ public class ClienteHilo extends Thread{
     private int id;
     private int i;
     private DatosPrograma datos;
-    private Random random;
+    //private Random random;
     //Maricel creo no hacia falta coordenadas aun
     //private Coordenadas coordenadas;
     //private int x,y,z;
+    private Socket sc;
     
     public ClienteHilo(int id,DatosPrograma datos){
-
+        
         this.id = id;
-        this.datos = datos;
-        //x = 0;
-        //y = 0;
-        //z = 0;
+        this.datos = datos;     
         
-        /*try {
-            dos = new DataOutputStream(socket.getOutputStream());
-            dis = new DataInputStream(socket.getInputStream());
-        } catch (IOException ex) {
-            Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
-            
-        
-     
     }
     
     public void desconnectar() {
         try {
-            socket.close();
+            sc.close();
         } catch (IOException ex) {
             Logger.getLogger(ServidorHilo.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,18 +44,15 @@ public class ClienteHilo extends Thread{
     
     @Override
     public void run(){
-        final String HOST = "127.0.0.1";
-        final int PUERTO = 10578;
-        
         try {
-            Socket sc = new Socket(HOST, PUERTO);
+            sc = new Socket("127.0.0.1",10578);
             dis = new DataInputStream(sc.getInputStream());    
             dos = new DataOutputStream(sc.getOutputStream());
             //Aqui poner las instrucciones que hara el hilo del cliente - jx
             
             
             for(i=0; i<datos.s ; i++){
-                System.out.println("Soy el cliente " + id +" me han despertado " + socket.getPort());
+                System.out.println("Soy el cliente " + id +" me han despertado " + sc.getPort());
                 
                 //Maricel
                 //x = 10;

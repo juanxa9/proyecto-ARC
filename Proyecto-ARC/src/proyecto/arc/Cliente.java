@@ -60,8 +60,9 @@ public class Cliente {
                 if(j == datos.v){
                     j = 0;
                 }
+                
                 matriz[(int)grupo][j] = new Cliente(id);
-                clientes.add(new ClienteHilo(id, datos));
+                clientes.add(new ClienteHilo(id,datos));
                 id++;
                 j++;
             }
@@ -87,9 +88,7 @@ public class Cliente {
 
             synchronized(clientes){
             if(!empieza)
-                clientes.wait();
-            
-                
+                clientes.wait();    
             }
             
             
@@ -97,9 +96,6 @@ public class Cliente {
         catch(IOException ex)
         {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-         
+        }  
     }
 }
