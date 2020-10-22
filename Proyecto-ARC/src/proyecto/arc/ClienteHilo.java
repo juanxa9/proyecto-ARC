@@ -26,8 +26,8 @@ public class ClienteHilo extends Thread{
     //private Coordenadas coordenadas;
     //private int x,y,z;
     
-    public ClienteHilo(int id, Socket socket,DatosPrograma datos){
-        this.socket = socket;
+    public ClienteHilo(int id,DatosPrograma datos){
+
         this.id = id;
         this.datos = datos;
         //x = 0;
@@ -47,8 +47,13 @@ public class ClienteHilo extends Thread{
     
     @Override
     public void run(){
+        final String HOST = "127.0.0.1";
+        final int PUERTO = 10578;
+        
         try {
-            
+            Socket sc = new Socket(HOST, PUERTO);
+            dis = new DataInputStream(sc.getInputStream());    
+            dos = new DataOutputStream(sc.getOutputStream());
             //Aqui poner las instrucciones que hara el hilo del cliente - jx
             
             for(i=0; i<datos.s ; i++){
