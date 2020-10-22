@@ -80,13 +80,14 @@ public class Servidor {
                 dos.writeInt(datos.getN());
                 dos.writeInt(datos.getV());
                 dos.writeInt(datos.getS());
+            if(dis.readInt()==1)
+                    dos.writeInt(empieza);
             while(true)
             {
                 Socket sc2 = servidor.accept();
                 //Aqui creamos nuestro servidor hilo
-                ((ServidorHilo) new ServidorHilo(sc2)).start();
-                if(dis.readInt()==1)
-                    dos.writeInt(empieza);
+                System.out.println("Se ha hecho");
+                ((ServidorHilo) new ServidorHilo(sc2)).start(); 
             }
         }
         catch(IOException ex)

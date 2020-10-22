@@ -56,6 +56,7 @@ public class ClienteHilo extends Thread{
             dos = new DataOutputStream(sc.getOutputStream());
             //Aqui poner las instrucciones que hara el hilo del cliente - jx
             
+            
             for(i=0; i<datos.s ; i++){
                 System.out.println("Soy el cliente " + id +" me han despertado " + socket.getPort());
                 
@@ -64,8 +65,8 @@ public class ClienteHilo extends Thread{
                 //y = 5;
                 //z = 7;
                 
-                /*dos.writeUTF("envioCoordenadas");
-                dos.writeInt(x);
+                dos.writeUTF("coordena");
+                /*dos.writeInt(x);
                 dos.writeInt(y);
                 dos.writeInt(z);*/
                 // ahora veras, me dice que esta cerrado el socket
