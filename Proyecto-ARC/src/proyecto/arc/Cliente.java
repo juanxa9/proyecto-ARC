@@ -25,7 +25,7 @@ public class Cliente {
         DataInputStream dis;
         DataOutputStream dos;
         int n,v,s,j,id;
-        Cliente matriz[][] = null;
+        Cliente matriz[][];
         j = id = 0;
         double grupo_aux, decimal, grupo;
         
@@ -42,6 +42,8 @@ public class Cliente {
             s = dis.readInt();
             System.out.println("Me han llegado que vamos a hacer "+ s +" iteraciones");
             
+            // Inicializamos la matriz aqui, por ej: n= 100, v = 10, una matriz 10x10
+            matriz = new Cliente [n/v][n/v];
             for(int i=0; i<n ; i++)
             {
                 grupo_aux = i / v;
