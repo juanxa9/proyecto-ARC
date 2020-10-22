@@ -19,7 +19,6 @@ public class ClienteHilo extends Thread{
     private DataOutputStream dos;
     private DataInputStream dis;
     private int id;
-    private int s; 
     private int i;
     private DatosPrograma datos;
     
@@ -43,8 +42,11 @@ public class ClienteHilo extends Thread{
         try {
             //Aqui poner las instrucciones que hara el hilo del cliente - jx
             
-            for(i=0; i<datos.s ; i++)
+            for(i=0; i<datos.s ; i++){
                 System.out.println("Soy el cliente " + id +" me han despertado");
+                
+            }
+                
              
            
             

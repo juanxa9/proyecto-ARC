@@ -25,7 +25,7 @@ public class Cliente {
         Thread t = null;
         DataInputStream dis;
         DataOutputStream dos;
-        int n,v,s,j,id,empInt,startSim;
+        int j,id,empInt,startSim;
         Cliente matriz[][];
         startSim = empInt = j = id = 0;
         double grupo_aux, decimal, grupo;
