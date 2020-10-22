@@ -87,7 +87,8 @@ public class Servidor {
                 Socket sc2 = servidor.accept();
                 //Aqui creamos nuestro servidor hilo
                 System.out.println("Se ha hecho");
-                ((ServidorHilo) new ServidorHilo(sc2)).start(); 
+                ((ServidorHilo) new ServidorHilo(sc2)).start();
+                System.out.println("Se ha hecho2");
             }
         }
         catch(IOException ex)
