@@ -34,12 +34,12 @@ public class ClienteHilo extends Thread{
         //y = 0;
         //z = 0;
         
-        try {
+        /*try {
             dos = new DataOutputStream(socket.getOutputStream());
             dis = new DataInputStream(socket.getInputStream());
         } catch (IOException ex) {
             Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        }*/
             
         
      
@@ -63,6 +63,7 @@ public class ClienteHilo extends Thread{
                 //x = 10;
                 //y = 5;
                 //z = 7;
+                
                 /*dos.writeUTF("envioCoordenadas");
                 dos.writeInt(x);
                 dos.writeInt(y);

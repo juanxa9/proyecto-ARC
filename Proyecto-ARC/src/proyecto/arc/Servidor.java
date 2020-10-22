@@ -23,8 +23,9 @@ public class Servidor {
     
     public static void main(String[] args) throws IOException {
        
-        ServerSocket servidor = null;
-        Socket sc = null;
+        ServerSocket servidor;
+        //Socket con el primer cliente para crearlos
+        Socket sc;
         DataInputStream dis;
         DataOutputStream dos;
         final int PUERTO = 10578;
@@ -52,7 +53,7 @@ public class Servidor {
             servidor = new ServerSocket(PUERTO);
             System.out.println("Se ha establecido la conexion con el servidor");
             
-            
+            /*
             while(true)
             {
                 sc = servidor.accept();
@@ -71,7 +72,22 @@ public class Servidor {
                 System.out.println("Estas son las coordenadas del cliente "+ sc.getPort()+ x +","+y+","+z);
                     
             }
-            
+         */
+            //Maricel el puto amo
+            sc = servidor.accept();
+                dis = new DataInputStream(sc.getInputStream());
+                dos = new DataOutputStream(sc.getOutputStream());
+                dos.writeInt(datos.getN());
+                dos.writeInt(datos.getV());
+                dos.writeInt(datos.getS());
+            while(true)
+            {
+                Socket sc2 = servidor.accept();
+                //Aqui creamos nuestro servidor hilo
+                ((ServidorHilo) new ServidorHilo(sc2)).start();
+                if(dis.readInt()==1)
+                    dos.writeInt(empieza);
+            }
         }
         catch(IOException ex)
         {
