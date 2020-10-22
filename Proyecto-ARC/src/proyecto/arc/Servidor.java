@@ -101,12 +101,28 @@ public class Servidor {
                     if(j == datos.getV()){
                         j = 0;
                 }
-                    
+                    //Esto esta mal, porque asigna en funcion del orden de llegada
+                    //no en funcion del id del cliente - JX
                     matriz[(int)grupo][j]= sc2;
                     j++;
                     System.out.println(matriz[0][0].getPort());
                     ((ServidorHilo) new ServidorHilo(sc2)).start();
                     System.out.println("Se ha hecho2");
+                    
+                    /*
+                    Lo que tenia pensado hacer es una primera conexion con los clientes
+                    donde sacamos el socket, y donde el cliente le pasa la coordenada
+                    y su propio id. Estos 3 datos los guardamos en 3 matrices distintas
+                    Y luego se crearia un for, donde le pasamos las 3 matrices al 
+                    ServidorHilo y ahi el servidor ya le manda a los vecinos las coordenadas.
+                    
+                    Porque a partir del id, del socket de cada cliente y de las coordenadas
+                    se puede hacer todo, porque teniendo el id del cliente, ya sabes el socket
+                    que le corresponde. Porque al servidor se le conecta un socket con un id.
+                    Y aunque lleguen en un orden distinto, se guarda el socket en la matriz
+                    en funcion del id y no del orden de llegada.
+                    
+                    */
                 }
             }
         }
