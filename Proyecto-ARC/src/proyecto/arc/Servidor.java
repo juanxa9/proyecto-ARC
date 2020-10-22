@@ -29,6 +29,9 @@ public class Servidor {
         DataOutputStream dos;
         final int PUERTO = 10578;
         int empieza = 0;
+        int x = 0,
+            y = 0,
+            z = 0;
         
         DatosPrograma datos = new DatosPrograma();
         
@@ -60,6 +63,13 @@ public class Servidor {
                 dos.writeInt(datos.getS());
                 if(dis.readInt()==1)
                     dos.writeInt(empieza);
+                if(dis.readUTF().equals("envioCoordenadas")){
+                    x = dis.readInt();
+                    y = dis.readInt();
+                    z = dis.readInt();
+                }
+                System.out.println("Estas son las coordenadas del cliente "+ sc.getPort()+ x +","+y+","+z);
+                    
             }
             
         }
