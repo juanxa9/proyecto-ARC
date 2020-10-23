@@ -8,6 +8,7 @@ package proyecto.arc;
 import java.io.*;
 import java.net.Socket;
 import java.util.*;
+import java.util.concurrent.Semaphore;
 import java.util.logging.*;
 
 /**
@@ -21,6 +22,7 @@ public class ClienteHilo extends Thread{
     private int id;
     private int i;
     private DatosPrograma datos;
+    Semaphore semaphore;
     //private Random random;
     //Maricel creo no hacia falta coordenadas aun
     //private Coordenadas coordenadas;
@@ -48,8 +50,19 @@ public class ClienteHilo extends Thread{
             sc = new Socket("127.0.0.1",10578);
             dis = new DataInputStream(sc.getInputStream());    
             dos = new DataOutputStream(sc.getOutputStream());
-            //Aqui poner las instrucciones que hara el hilo del cliente - jx
+            //Creo un semaforo`para escriba solo un cliente en writeInt
+            semaphore = new Semaphore (1);
             
+            try {
+                semaphore.acquire();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("Soy el cliente " + id);
+            dos.writeInt(id);
+            System.out.println("Soy el cliente " + id +"ENVIADO");
+            semaphore.release();
+           
             
             for(i=0; i<datos.s ; i++){
                 System.out.println("Soy el cliente " + id +" me han despertado " + sc.getLocalPort());
@@ -59,7 +72,7 @@ public class ClienteHilo extends Thread{
                 //y = 5;
                 //z = 7;
                 
-                dos.writeUTF("coordena");
+                //dos.writeUTF("coordena");
                 /*dos.writeInt(x);
                 dos.writeInt(y);
                 dos.writeInt(z);*/
