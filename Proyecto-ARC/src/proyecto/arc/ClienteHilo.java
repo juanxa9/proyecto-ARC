@@ -33,7 +33,8 @@ public class ClienteHilo extends Thread{
         
         this.id = id;
         this.datos = datos;     
-        
+        //Con este semaforo entra un hilo y realiza las operaciones de dentro, con ello los hilos van por orden
+        semaphore = new Semaphore (1,true);
     }
     
     public void desconnectar() {
@@ -47,21 +48,21 @@ public class ClienteHilo extends Thread{
     @Override
     public void run(){
         try {
-            sc = new Socket("127.0.0.1",10578);
-            dis = new DataInputStream(sc.getInputStream());    
-            dos = new DataOutputStream(sc.getOutputStream());
-            //Creo un semaforo`para escriba solo un cliente en writeInt
-            semaphore = new Semaphore (1);
-            
             try {
                 semaphore.acquire();
             } catch (InterruptedException ex) {
                 Logger.getLogger(ClienteHilo.class.getName()).log(Level.SEVERE, null, ex);
             }
+            sc = new Socket("127.0.0.1",10578);
+            semaphore.release();
+            dis = new DataInputStream(sc.getInputStream());    
+            dos = new DataOutputStream(sc.getOutputStream());
+            
+            
+         
             System.out.println("Soy el cliente " + id);
             dos.writeInt(id);
             System.out.println("Soy el cliente " + id +"ENVIADO");
-            semaphore.release();
            
             
             for(i=0; i<datos.s ; i++){

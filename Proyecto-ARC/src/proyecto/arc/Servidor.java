@@ -31,7 +31,7 @@ public class Servidor {
           se les pasa la id al server
         */
         DataInputStream dis,in;
-        DataOutputStream dos;
+        DataOutputStream dos,out;
         //Variable donde se guarda la id
         int id_cliente;
         final int PUERTO = 10578;
@@ -102,8 +102,10 @@ public class Servidor {
             {
                 //Acepto los clientes
                 Socket sc2 = servidor.accept();
+                System.out.println("Se ha guardado el puerto:"+sc2.getPort());
                 //Aqui estoy esparando su id
                 in = new DataInputStream(sc2.getInputStream());
+                out = new DataOutputStream(sc2.getOutputStream());
                 //Asigno el id del cliente
                 id_cliente = in.readInt();
                 System.out.println("Id_cliente"+id_cliente);
@@ -115,7 +117,7 @@ public class Servidor {
                 //Calculamos la columna para guardar el socket en la matriz en funcion del id
                 columna_aux = id_cliente % datos.getV();
                 matriz[grupo][columna_aux]= sc2;
-                System.out.println("Se ha guardado el puerto:"+sc2.getPort());
+                
                 //Este contador me sirve para saber cuando llega el ultimo cliente
                 contador++;
                 //Cuando llegamos al ultimo cliente mostramos matriz
@@ -127,16 +129,9 @@ public class Servidor {
                         }
                     }
                 }
-                    
                 //System.out.println("Se ha hecho2");
-                /*
-                    //Esto esta mal, porque asigna en funcion del orden de llegada
-                    //no en funcion del id del cliente - JX
- 
-               
-                    ((ServidorHilo) new ServidorHilo(sc2)).start();
-                    
-                    
+                //((ServidorHilo) new ServidorHilo(sc2)).start();
+           
                     /*
                     Lo que tenia pensado hacer es una primera conexion con los clientes
                     donde sacamos el socket, y donde el cliente le pasa la coordenada
@@ -149,7 +144,7 @@ public class Servidor {
                     que le corresponde. Porque al servidor se le conecta un socket con un id.
                     Y aunque lleguen en un orden distinto, se guarda el socket en la matriz
                     en funcion del id y no del orden de llegada.
-  */
+                    */
             }
         }
         catch(IOException ex)
