@@ -117,17 +117,13 @@ public class Servidor {
                 //Calculamos la columna para guardar el socket en la matriz en funcion del id
                 columna_aux = id_cliente % datos.getV();
                 matriz[grupo][columna_aux]= sc2;
-                
+                System.out.println(matriz[grupo][columna_aux].getPort());
                 //Este contador me sirve para saber cuando llega el ultimo cliente
                 contador++;
                 //Cuando llegamos al ultimo cliente mostramos matriz
                 if( contador == (datos.getN()-1))
                 {
-                    for (int i = 0;i < datos.getV(); i++){
-                        for (int j = 0;j < datos.getN(); j++){
-                            System.out.println(matriz[i][j].getPort() + "");
-                        }
-                    }
+                    ;
                 }
                 //System.out.println("Se ha hecho2");
                 //((ServidorHilo) new ServidorHilo(sc2)).start();
