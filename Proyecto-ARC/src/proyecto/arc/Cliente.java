@@ -61,7 +61,7 @@ public class Cliente {
                     j = 0;
                 }
                 matriz[(int)grupo][j] = new Cliente(id);
-                clientes.add(new ClienteHilo(id,datos));
+                clientes.add(new ClienteHilo(id,datos,(int)grupo));
                 id++;
                 j++;
             }

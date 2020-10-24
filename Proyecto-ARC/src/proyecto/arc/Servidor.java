@@ -36,18 +36,12 @@ public class Servidor {
         int id_cliente;
         final int PUERTO = 10578;
         int empieza = 1;
-        int x = 0,
-            y = 0,
-            z = 0,
-            grupo = 0,
+        int grupo = 0,
             grupo_aux = 0,
             decimal = 0,
             columna_aux = 0,
-            columna = 0,
             contador = 0;
-        
-        
-        
+
         DatosPrograma datos = new DatosPrograma();
         
         Scanner entrada = new Scanner(System.in);
@@ -63,31 +57,12 @@ public class Servidor {
         datos.setS(entrada.nextInt());
         //Siempre es matriz cuadrada
         Socket matriz[][] = new Socket [datos.getN()/datos.getV()][datos.getN()/datos.getV()];
+        
         try
         {
             servidor = new ServerSocket(PUERTO);
             System.out.println("Se ha establecido la conexion con el servidor");
             
-            /*
-            while(true)
-            {
-                sc = servidor.accept();
-                dis = new DataInputStream(sc.getInputStream());
-                dos = new DataOutputStream(sc.getOutputStream());
-                dos.writeInt(datos.getN());
-                dos.writeInt(datos.getV());
-                dos.writeInt(datos.getS());
-                if(dis.readInt()==1)
-                    dos.writeInt(empieza);
-                if(dis.readUTF().equals("envioCoordenadas")){
-                    x = dis.readInt();
-                    y = dis.readInt();
-                    z = dis.readInt();
-                }
-                System.out.println("Estas son las coordenadas del cliente "+ sc.getPort()+ x +","+y+","+z);
-                    
-            }
-         */
             //Maricel 
             sc = servidor.accept();
             dis = new DataInputStream(sc.getInputStream());
@@ -98,14 +73,14 @@ public class Servidor {
             
             if(dis.readInt()==1)
                     dos.writeInt(empieza);
-            while(true)
+            while(contador < datos.getN())
             {
                 //Acepto los clientes
                 Socket sc2 = servidor.accept();
                 System.out.println("Se ha guardado el puerto:"+sc2.getPort());
                 //Aqui estoy esparando su id
                 in = new DataInputStream(sc2.getInputStream());
-                out = new DataOutputStream(sc2.getOutputStream());
+                //out = new DataOutputStream(sc2.getOutputStream());
                 //Asigno el id del cliente
                 id_cliente = in.readInt();
                 System.out.println("Id_cliente"+id_cliente);
@@ -113,36 +88,38 @@ public class Servidor {
                 grupo_aux = id_cliente / datos.getV();
                 decimal = grupo_aux % 1;   //sacamos la parte decimal
                 grupo = grupo_aux - decimal;
-                
                 //Calculamos la columna para guardar el socket en la matriz en funcion del id
                 columna_aux = id_cliente % datos.getV();
                 matriz[grupo][columna_aux]= sc2;
-                System.out.println(matriz[grupo][columna_aux].getPort());
-                //Este contador me sirve para saber cuando llega el ultimo cliente
                 contador++;
-                //Cuando llegamos al ultimo cliente mostramos matriz
-                if( contador == (datos.getN()-1))
-                {
-                    ;
-                }
-                //System.out.println("Se ha hecho2");
-                //((ServidorHilo) new ServidorHilo(sc2)).start();
-           
-                    /*
-                    Lo que tenia pensado hacer es una primera conexion con los clientes
-                    donde sacamos el socket, y donde el cliente le pasa la coordenada
-                    y su propio id. Estos 3 datos los guardamos en 3 matrices distintas
-                    Y luego se crearia un for, donde le pasamos las 3 matrices al 
-                    ServidorHilo y ahi el servidor ya le manda a los vecinos las coordenadas.
-                    
-                    Porque a partir del id, del socket de cada cliente y de las coordenadas
-                    se puede hacer todo, porque teniendo el id del cliente, ya sabes el socket
-                    que le corresponde. Porque al servidor se le conecta un socket con un id.
-                    Y aunque lleguen en un orden distinto, se guarda el socket en la matriz
-                    en funcion del id y no del orden de llegada.
-                    */
             }
-        }
+            contador = 0;
+            
+            //
+            while(contador < datos.getS())
+            {
+                for(int i= 0; i < datos.getN()/datos.getV(); i++)
+                {
+                    for(int j= 0; j <datos.getN()/datos.getV(); j++)
+                    {     
+                        in = new DataInputStream(matriz[i][j].getInputStream());
+                        int tupapi = in.readInt();
+                        if(tupapi == 2)
+                        {
+                            for(int k=0; k < datos.getN()/datos.getV(); k++)
+                            {
+                                if((matriz[i][j].getPort() != matriz[i][k].getPort()))
+                                {
+                                    out = new DataOutputStream(matriz[i][k].getOutputStream());
+                                    out.writeUTF("Soy el cliente "+matriz[i][j].getPort()+" --> Coordenadas enviadadas a: ");  
+                                }                            
+                            }
+                        }    
+                    }
+                }
+                contador++;
+            } 
+        }    
         catch(IOException ex)
         {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
