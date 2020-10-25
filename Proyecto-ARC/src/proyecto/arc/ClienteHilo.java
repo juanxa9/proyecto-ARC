@@ -7,6 +7,7 @@ package proyecto.arc;
 
 import java.io.*;
 import java.net.Socket;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.logging.*;
@@ -56,6 +57,14 @@ public class ClienteHilo extends Thread{
                 dis = new DataInputStream(sc.getInputStream());    
                 dos = new DataOutputStream(sc.getOutputStream());
                 
+                LocalDateTime locaDate = LocalDateTime.now();
+                int hours  = locaDate.getHour();
+                int minutes = locaDate.getMinute();
+                int seconds = locaDate.getSecond();
+                int nano = locaDate.getNano();
+                minutes = (hours * 60) + minutes;
+                seconds = (minutes *60) + seconds;
+                nano = (seconds * 1000000000) + nano;
                 dos.writeInt(id);
                 dos.flush();
                 
@@ -67,8 +76,17 @@ public class ClienteHilo extends Thread{
                 
                 uwu = dis.readUTF();
                 System.out.println(uwu+ sc.getLocalPort());
-                   
                 
+                LocalDateTime locaDate2 = LocalDateTime.now();
+                int hours2  = locaDate2.getHour();
+                int minutes2 = locaDate2.getMinute();
+                int seconds2 = locaDate2.getSecond();
+                int nano2 = locaDate2.getNano();
+                minutes2 = (hours2 * 60) + minutes2;
+                seconds2 = (minutes2 *60) + seconds2;
+                nano2 = (seconds2 * 1000000000) + nano2;
+                nano = nano2 - nano;
+                System.out.println("Tiempo en nanosegundos  " + nano + "Puerto:" + sc.getPort()); 
 
                 //dis.close();
                 //dos.close();
