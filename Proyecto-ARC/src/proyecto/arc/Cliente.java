@@ -49,7 +49,7 @@ public class Cliente {
             System.out.println("Me han llegado que vamos a hacer "+ datos.s +" iteraciones");
             
             // Inicializamos la matriz aqui, por ej: n= 100, v = 10, una matriz 10x10
-            matriz = new Cliente [datos.n/datos.v][datos.v];
+            matriz = new Cliente [datos.n/datos.v][datos.n/datos.v];
             
             for(int i=0; i<datos.n ; i++)
             {

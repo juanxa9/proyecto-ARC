@@ -40,7 +40,8 @@ public class Servidor {
             grupo_aux = 0,
             decimal = 0,
             columna_aux = 0,
-            contador = 0;
+            contador = 0,
+            veces = 0;
 
         DatosPrograma datos = new DatosPrograma();
         
@@ -68,11 +69,17 @@ public class Servidor {
             dis = new DataInputStream(sc.getInputStream());
             dos = new DataOutputStream(sc.getOutputStream());
             dos.writeInt(datos.getN());
+            dos.flush();
             dos.writeInt(datos.getV());
+            dos.flush();
             dos.writeInt(datos.getS());
+            dos.flush();
             
-            if(dis.readInt()==1)
-                    dos.writeInt(empieza);
+            if(dis.readInt()==1){
+                dos.writeInt(empieza);
+                dos.flush();
+            }
+                    
             while(contador < datos.getN())
             {
                 //Acepto los clientes
@@ -93,6 +100,9 @@ public class Servidor {
                 matriz[grupo][columna_aux]= sc2;
                 contador++;
             }
+            dis.close();
+            dos.close();
+            sc.close();
             contador = 0;
             
             //
@@ -100,18 +110,20 @@ public class Servidor {
             {
                 for(int i= 0; i < datos.getN()/datos.getV(); i++)
                 {
-                    for(int j= 0; j < datos.getV(); j++)
+                    for(int j= 0; j < datos.getN()/datos.getV(); j++)
                     {     
                         in = new DataInputStream(matriz[i][j].getInputStream());
                         int tupapi = in.readInt();
                         if(tupapi == 2)
                         {
-                            for(int k=0; k < datos.getV(); k++)
+                            for(int k=0; k < datos.getN()/datos.getV(); k++)
                             {
                                 if((matriz[i][j].getPort() != matriz[i][k].getPort()))
                                 {
                                     out = new DataOutputStream(matriz[i][k].getOutputStream());
-                                    out.writeUTF("Soy el cliente "+matriz[i][j].getPort()+" --> Coordenadas enviadadas a: ");  
+                                    out.writeUTF("Soy el cliente "+matriz[i][j].getPort()+" --> Coordenadas enviadadas a: "); 
+                                    out.flush();
+                                    veces++;
                                 }                            
                             }
                         }    
@@ -119,6 +131,7 @@ public class Servidor {
                 }
                 contador++;
             } 
+            System.out.println("Se han mandado "+ veces+ " menasjes");
         }    
         catch(IOException ex)
         {

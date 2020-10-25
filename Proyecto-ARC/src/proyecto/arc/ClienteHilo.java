@@ -30,11 +30,13 @@ public class ClienteHilo extends Thread{
     //private int x,y,z;
     private Socket sc;
     private String uwu;
+    private int p;
     
     public ClienteHilo(int id,DatosPrograma datos, int grupo){
         this.grupo = grupo;
         this.id = id;
-        this.datos = datos;     
+        this.datos = datos;  
+        p = 0;
         
     }
     
@@ -55,13 +57,18 @@ public class ClienteHilo extends Thread{
                 dos = new DataOutputStream(sc.getOutputStream());
                 
                 dos.writeInt(id);
+                dos.flush();
                 
                 for(int i = 0; i<datos.s;i++){
                     dos.writeInt(2);
+                    dos.flush();
                     
                 }
+                
                 uwu = dis.readUTF();
                 System.out.println(uwu+ sc.getLocalPort());
+                   
+                
 
                 //dis.close();
                 //dos.close();
