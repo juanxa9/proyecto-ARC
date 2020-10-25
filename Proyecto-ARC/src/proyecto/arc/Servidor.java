@@ -56,7 +56,7 @@ public class Servidor {
         System.out.println("Introduzca el numero iteraciones: ");
         datos.setS(entrada.nextInt());
         //Siempre es matriz cuadrada
-        Socket matriz[][] = new Socket [datos.getN()/datos.getV()][datos.getN()/datos.getV()];
+        Socket matriz[][] = new Socket [datos.getN()/datos.getV()][datos.getV()];
         
         try
         {
@@ -100,13 +100,13 @@ public class Servidor {
             {
                 for(int i= 0; i < datos.getN()/datos.getV(); i++)
                 {
-                    for(int j= 0; j <datos.getN()/datos.getV(); j++)
+                    for(int j= 0; j < datos.getV(); j++)
                     {     
                         in = new DataInputStream(matriz[i][j].getInputStream());
                         int tupapi = in.readInt();
                         if(tupapi == 2)
                         {
-                            for(int k=0; k < datos.getN()/datos.getV(); k++)
+                            for(int k=0; k < datos.getV(); k++)
                             {
                                 if((matriz[i][j].getPort() != matriz[i][k].getPort()))
                                 {
