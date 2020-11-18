@@ -7,7 +7,7 @@ import java.util.logging.*;
 
 /**
  *
- * @author juan2
+ * @author juan
  */
 public class Cliente {
     int id;
